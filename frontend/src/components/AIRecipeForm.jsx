@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "../Index.css";
+import "../index.css";
 
 const AIRecipeChat = () => {
   const [type, setType] = useState("veg");

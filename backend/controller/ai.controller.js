@@ -1,6 +1,7 @@
 const axios = require("axios");
 
-const AI_API_BASE = "http://localhost:8000";
+// const AI_API_BASE = "http://localhost:8000";
+const AI_API_BASE = "http://ai:8000";
 
 const ai = async (req, res) => {
   try {
