@@ -46,15 +46,8 @@ This project focuses on **how modern applications are actually deployed**, not j
 🧠 System Architecture (Important)
 ----------------------------------
 
-`Client (React)
-   |
-   | HTTP (REST)
-   v Backend API (Node.js / Express)
-   |
-   | HTTP (internal service call)
-   v AI Service (FastAPI + LangChain + LLM)
-   |
-   v MongoDB`
+`Client (React) -->  HTTP (REST) --> Backend API (Node.js / Express) --> HTTP (internal service call) ---> AI Service (FastAPI + LangChain + LLM) ---> MongoDB
+`
 
 Each component runs as an **independent Docker container**, enabling:
 
