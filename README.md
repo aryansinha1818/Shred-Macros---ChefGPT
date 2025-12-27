@@ -4,9 +4,9 @@
 **AI-Powered Recipe & Nutrition Assistant (Dockerized Full-Stack App)**
 
 Shred-Macros is a **production-style, Dockerized full-stack application** that demonstrates **real-world system design**, **cross-service communication**, and **LLM integration**.\
-The system is built using **React, Node.js, FastAPI, LangChain, MongoDB**, and runs as **multiple isolated services using Docker Compose**.
+The system is built using **React, Node.js, FastAPI, LangChain, and MongoDB**, and runs as **multiple isolated services using Docker Compose**.
 
-This project focuses on **how modern applications are actually deployed**, not just built.
+This project focuses on **how modern applications are architected and orchestrated using containers**, not just on feature implementation.
 
 * * * * *
 
@@ -27,7 +27,7 @@ This project focuses on **how modern applications are actually deployed**, not j
 
     -   Optional macro & micro nutrition output
 
-    -   Structured JSON responses from AI
+    -   Structured JSON responses from the AI
 
 -   **Chat-like Experience**
 
@@ -46,16 +46,15 @@ This project focuses on **how modern applications are actually deployed**, not j
 🧠 System Architecture (Important)
 ----------------------------------
 
-`Client (React) -->  HTTP (REST) --> Backend API (Node.js / Express) --> HTTP (internal service call) ---> AI Service (FastAPI + LangChain + LLM) ---> MongoDB
-`
+`Client (React) -->  HTTP (REST) --> Backend API (Node.js / Express) --> HTTP (internal service call) ---> AI Service (FastAPI + LangChain + LLM) ---> MongoDB`
 
 Each component runs as an **independent Docker container**, enabling:
 
 -   clear service boundaries
 
--   scalable architecture
+-   easier debugging and isolation
 
--   production-like deployment
+-   production-style local development
 
 * * * * *
 
@@ -64,11 +63,13 @@ Each component runs as an **independent Docker container**, enabling:
 
 The entire application is orchestrated using **Docker Compose**.
 
-### Services:
+### Services Overview
 
 -   **frontend**
 
-    -   React app (Vite)
+    -   React (Vite)
+
+    -   Runs in its own container
 
     -   Exposed on `5173`
 
@@ -78,15 +79,17 @@ The entire application is orchestrated using **Docker Compose**.
 
     -   Acts as API gateway
 
-    -   Handles auth, recipe CRUD, DB access
+    -   Handles authentication, recipe CRUD, and DB access
 
     -   Exposed on `5001`
 
 -   **ai-service**
 
-    -   FastAPI + LangChain
+    -   Python FastAPI + LangChain
 
-    -   Handles all LLM logic
+    -   Handles all LLM-related logic
+
+    -   Stateless AI microservice
 
     -   Exposed on `8000`
 
@@ -94,11 +97,11 @@ The entire application is orchestrated using **Docker Compose**.
 
     -   MongoDB database
 
-    -   Internal Docker network only
+    -   Accessible only within Docker network
 
--   **mongo-express** (dev only)
+-   **mongo-express** (development utility)
 
-    -   Database UI
+    -   Database UI for inspection
 
     -   Exposed on `8081`
 
@@ -113,7 +116,7 @@ The entire application is orchestrated using **Docker Compose**.
 
 -   Chat-style UI
 
--   Recipe form & share flow
+-   Recipe generation & sharing flow
 
 ### Backend
 
@@ -125,7 +128,7 @@ The entire application is orchestrated using **Docker Compose**.
 
 -   MongoDB integration
 
--   Acts as **single entry point** for frontend
+-   Serves as the **single entry point** for the frontend
 
 ### AI Layer
 
@@ -133,9 +136,9 @@ The entire application is orchestrated using **Docker Compose**.
 
 -   LangChain
 
--   LLM-driven recipe generation
+-   LLM-powered recipe generation
 
--   Conversation memory
+-   Conversation memory handling
 
 -   Structured output enforcement
 
@@ -143,9 +146,7 @@ The entire application is orchestrated using **Docker Compose**.
 
 -   MongoDB
 
--   Local (Docker) for development
-
--   MongoDB Atlas for production
+-   Containerized for local development
 
 * * * * *
 
@@ -155,7 +156,7 @@ The entire application is orchestrated using **Docker Compose**.
 ### Backend (`server/.env`)
 
 `PORT=5001
-MONGO_URI=mongodb://mongo:27017/shredmacro   # Docker
+MONGO_URI=mongodb://mongo:27017/shredmacro
 JWT_SECRET=your_secret
 AI_SERVICE_URL=http://ai-service:8000`
 
@@ -168,16 +169,16 @@ AI_SERVICE_URL=http://ai-service:8000`
 ▶️ Running the Project (Docker)
 -------------------------------
 
-### 1️⃣ Clone the repo
+### 1️⃣ Clone the repository
 
 `git clone https://github.com/aryansinha1818/Shred-Macros.git
 cd Shred-Macros`
 
-### 2️⃣ Start all services
+### 2️⃣ Build and start all services
 
 `docker-compose up --build`
 
-### 3️⃣ Access the app
+### 3️⃣ Access running services
 
 -   Frontend → `http://localhost:5173`
 
@@ -189,33 +190,18 @@ cd Shred-Macros`
 
 * * * * *
 
-☁️ Production Deployment
-------------------------
-
--   **Frontend** → Vercel
-
--   **Backend** → Render
-
--   **AI Service** → Render
-
--   **Database** → MongoDB Atlas
-
-Only the **connection string changes** --- code remains identical.
-
-* * * * *
-
 🎯 Engineering Highlights
 -------------------------
 
--   Clean separation of concerns
+-   Clear separation of frontend, backend, AI, and database layers
 
--   Docker networking instead of `localhost`
+-   Docker networking used instead of `localhost`
 
--   Backend-mediated DB access (frontend never touches DB)
+-   Backend mediates all database access
 
--   AI isolated as its own microservice
+-   AI logic isolated as a dedicated microservice
 
--   Production-ready architecture mindset
+-   Container-based architecture aligned with real-world systems
 
 * * * * *
 
@@ -223,7 +209,7 @@ Only the **connection string changes** --- code remains identical.
 ------------
 
 **Aryan Sinha**\
-Backend & GenAI Developer\
+Backend & GenAI Developer
 
 📧 Email: <aryan.sinha1818@gmail.com>\
 🔗 LinkedIn: <https://www.linkedin.com/in/aryan-sinha-877698212/>
